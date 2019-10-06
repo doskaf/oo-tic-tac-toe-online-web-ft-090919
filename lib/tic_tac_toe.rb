@@ -2,6 +2,7 @@ require "pry"
 
 class TicTacToe
   
+<<<<<<< HEAD
   def initialize(board = nil)
     @board = board || Array.new(9, " ")
   end
@@ -16,6 +17,24 @@ class TicTacToe
     [0,4,8],
     [2,4,6]
   ]
+=======
+  attr_accessor :index
+  
+  def initialize
+    @board = Array.new(9, " ")
+  end
+  
+  WIN_COMBINATIONS = [
+      [0,1,2],
+      [3,4,5],
+      [6,7,8],
+      [0,3,6],
+      [1,4,7],
+      [2,5,8],
+      [0,4,8],
+      [2,4,6]
+    ]
+>>>>>>> b9ee6d452d111988d2ade30e136eea8390402559
   
   def display_board
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
@@ -26,6 +45,7 @@ class TicTacToe
   end
   
   def input_to_index(input)
+<<<<<<< HEAD
     input.to_i - 1
   end
   
@@ -55,12 +75,39 @@ class TicTacToe
   
   def turn_count
     @board.count{|token| token == "X" || token == "O"}
+=======
+    @index = input.to_i - 1
+    @board[@index] = @index
+  end
+  
+  def move(index, token = "X")
+      @board[index] = token
+  end
+  
+  def position_taken?(index)
+    !(position(index).nil? || position(index) == " ")
+  end
+  
+  def valid_move?(index)
+    !position_taken?(index) && index >= 0 && index <= 8
+  end
+  
+  def turn_count
+    occupied = 0
+    @board.each do |space|
+      if space != " "
+        occupied += 1
+      end
+    end
+    occupied
+>>>>>>> b9ee6d452d111988d2ade30e136eea8390402559
   end
   
   def current_player
     turn_count % 2 == 0 ? "X" : "O"
   end
   
+<<<<<<< HEAD
   def won?
     a = WIN_COMBINATIONS.find{
       |combo|
@@ -102,5 +149,16 @@ class TicTacToe
     elsif draw?
       puts "Cat's Game!"
     end
+=======
+  def turn
+    puts "Please enter 1-9:"
+    input = gets
+    if valid_move?(input)
+      move(input, current_player)
+      display_board
+    else
+      turn
+    end
+>>>>>>> b9ee6d452d111988d2ade30e136eea8390402559
   end
 end
